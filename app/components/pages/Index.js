@@ -33,7 +33,7 @@ var HomePage = React.createClass({
   componentDidMount() {
     var self = this;
     var $ = require('jquery');
-    $.get('/data/test.json', function(result) {
+    $.get('/api/test', function(result) {
       if (self.isMounted()) {
         self.setState({
           name: result.name

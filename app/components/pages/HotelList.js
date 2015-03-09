@@ -31,7 +31,7 @@ var HotelListPage = React.createClass({
     });
 
     if (ExecutionEnvironment.canUseDOM) {
-      require('!style!css!less!../../css/hotel-list.less');
+      require('!style!css!less!../../css/hotelList.less');
     } else {
       this.setStateOnServer();
     }
@@ -55,7 +55,7 @@ var HotelListPage = React.createClass({
   componentDidMount() {
     var self = this;
     var $ = require('jquery');
-    $.getJSON('/data/hotelList.json', function(result) {
+    $.getJSON('/api/hotelList', function(result) {
       if (self.isMounted()) {
         self.setState({
           list: result.list
