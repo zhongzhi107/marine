@@ -6,21 +6,23 @@ module.exports = {
   },
   html: {
     files: [
-      'app/index.html'
+      'src/index.html'
     ]
   },
   js: {
     files: [
-      'app/**/*.js'
+      'src/**/*.{js,css}'
     ],
-    tasks: [
-      'webpack'
-    ]
-  },
-  css: {
-    files: ['app/css/*.{css,less}'],
-    tasks: [
-      'webpack'
-    ]
+    options: {
+      //TODO: 暂时整页刷新
+      reload: true
+    }
+
+  // },
+  // css: {
+  //   files: ['app/css/*.{css,less}'],
+  //   tasks: [
+  //     'webpack'
+  //   ]
   }
 };

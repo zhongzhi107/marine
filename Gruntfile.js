@@ -1,11 +1,9 @@
 'use strict';
 
-// var LIVERELOAD_PORT = require('./config/marine').port.liveReload;
-// var mountFolder = function(connect, dir) {
-//   return connect.static(require('path').resolve(dir));
-// };
-
 module.exports = function(grunt) {
+
+  // 保证grunt中require的ES6能正常解析
+  require('babel/register');
 
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
@@ -13,10 +11,6 @@ module.exports = function(grunt) {
   var ma = require('./config/marine');
   //var webpack = require('webpack');
   var webpackConfig = require('./config/grunt/webpack');
-
-  // 获取编译环境的cdnRoot
-  var cdnRoot = require('./config/cdnroot')(grunt);
-
   grunt.initConfig({
     // 项目配置
     ma: ma,
@@ -27,35 +21,9 @@ module.exports = function(grunt) {
     // 复制文件/目录
     copy: require('./config/grunt/copy'),
 
-    // useminPrepare
-    //useminPrepare: require('./config/grunt/useminPrepare'),
-
-    usemin: {
-        // look under this files
-        css: '<%=ma.path.dist%>/css/**/*.css',
-        html: '<%=ma.path.dist%>/index.html',
-        //js: '<%=ma.dist%>/static/js/**/*.js',
-        options: {
-            // Single item array set to the value of the directory where the currently looked at file is.
-            assetsDirs: [
-                '<%=ma.path.dist%>',
-                '<%=ma.path.dist%>/js',
-                '<%=ma.path.dist%>/css'
-            ],
-            // Extend default settings to support CDN url.
-            patterns: require('./config/grunt/useminPattern').pattern(cdnRoot)
-        }
-    },
-
-    /**
-     * Static file asset revisioning through content hashing
-     */
-    rev: require('./config/grunt/rev'),
-
     // 本地web服务器
-    connect: require('./config/grunt/connect')(grunt),
+    connect: require('./config/grunt/connect')(),
 
-    // 监听文件变化
     watch: require('./config/grunt/watch'),
 
     webpack: {
@@ -75,29 +43,13 @@ module.exports = function(grunt) {
     }
   });
 
-  //grunt.loadNpmTasks('grunt-webpack');
-  //grunt.loadNpmTasks('webpack-dev-server');
   grunt.registerTask('default', [
     'clean:server',
-    'webpack',
+    // 'webpack',
     'configureRewriteRules',
     'connect:dev',
     'watch'
   ]);
 
-  grunt.registerTask('server', [
-    'default'
-  ]);
-
-  grunt.registerTask('build', [
-    'clean:dist',
-    'webpack',
-    'copy',
-    //'useminPrepare',
-    'rev:dist',
-    'usemin',
-    'configureRewriteRules',
-    'connect:dist'
-  ]);
 
 };

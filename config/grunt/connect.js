@@ -1,33 +1,41 @@
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function() {
+  var grunt = require('grunt');
+  var webpack = require('webpack');
+  var webpackConfig = require('./webpack');
+  var webpackDevMiddleware = require('webpack-dev-middleware');
+
   var ma = require('../marine');
-  var LIVERELOAD_PORT = ma.port.liveReload;
   var rewriteRulesSnippet = require('grunt-connect-route/lib/utils').rewriteRequest;
   var mountFolder = function(connect, dir) {
     return connect.static(require('path').resolve(dir));
   };
 
   return {
-    rules: require('../routerAPI'),
+    rules: require('../router-api'),
     dev: {
       options: {
         port: grunt.option('port') || ma.port.www,
-        // change this to '0.0.0.0' to access the server from outside
         hostname: '0.0.0.0',
-        //localhost: 'my.qunar.com',
         localhost: grunt.option('host') || 'localhost',
-        //keepalive: true,
-        //open: true,
-        //debug: true,
-        livereload: LIVERELOAD_PORT,
+        livereload: ma.port.liveReload,
         middleware: function(connect) {
           return [
-            require('connect-livereload')({ port: LIVERELOAD_PORT }),
-            mountFolder(connect, '.tmp'),
-            mountFolder(connect, ma.path.app),
+            // mountFolder(connect, '.tmp'),
+            // mountFolder(connect, ma.path.app),
+            mountFolder(connect, ma.path.app + '/assets'),
+            require('../../src/server'),
             rewriteRulesSnippet,
-            require('../serverRender')
+            webpackDevMiddleware(webpack(webpackConfig), {
+              publicPath: '/js',
+              //watchDelay: 5000,
+              //contentBase: '.tmp',
+              //inline: true,
+              // hot: true,
+              stats: {colors: true}
+            }),
+            // require('../../src/server')
           ];
         }
       }

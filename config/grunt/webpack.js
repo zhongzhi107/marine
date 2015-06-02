@@ -1,21 +1,34 @@
 'use strict';
 
+var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var AUTOPREFIXER_LOADER = '!autoprefixer?{browsers:[' +
+'"Android 2.3", "Android >= 4", "Chrome >= 20", "Firefox >= 24", ' +
+'"Explorer >= 8", "iOS >= 6", "Opera >= 12", "Safari >= 6"]}';
+
 module.exports = {
   cache: false,
-  entry: './app/main.js',
+  entry: './src/main.js',
   output: {
-    path: '.tmp/js',
-    filename: 'main.js'
+    chunkFilename: '[name].[chunkhash].js',
+    filename: '[name].js',
+    path: path.join(process.cwd(), 'dist'),
+    publicPath: '/js',
   },
   module: {
     loaders: [
+      // { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader' + AUTOPREFIXER_LOADER, 'less-loader') },
       { test: /\.css$/, loader: 'style!css?minimize' },
-      { test: /\.less$/, loader: 'style!css!less' },
-      { test: /\.gif/, loader: 'url?limit=8192&minetype=image/gif' },
-      { test: /\.jpg/, loader: 'url?limit=8192&minetype=image/jpg' },
-      { test: /\.png/, loader: 'url?limit=8192&minetype=image/png' },
-      { test: /\.jsx?$/, loader: 'jsx?harmony&stripTypes' }
+      { test: /\.less$/, loader: 'style!css' + AUTOPREFIXER_LOADER + '!less' },
+      // { test: /\.gif/, loader: 'url?limit=8192&minetype=image/gif' },
+      // { test: /\.jpg/, loader: 'url?limit=8192&minetype=image/jpg' },
+      // { test: /\.png/, loader: 'url?limit=8192&minetype=image/png' },
+      // { test: /\.jsx?$/, loader: 'jsx?harmony&stripTypes' }
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
     ]
   },
-  plugins: []
+  plugins: [
+    new ExtractTextPlugin('[name].css')
+  ]
 };
