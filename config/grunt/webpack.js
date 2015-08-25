@@ -1,13 +1,13 @@
 'use strict';
 
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+import path from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-var AUTOPREFIXER_LOADER = '!autoprefixer?{browsers:[' +
+const AUTOPREFIXER_LOADER = '!autoprefixer?{browsers:[' +
 '"Android 2.3", "Android >= 4", "Chrome >= 20", "Firefox >= 24", ' +
 '"Explorer >= 8", "iOS >= 6", "Opera >= 12", "Safari >= 6"]}';
 
-module.exports = {
+export default {
   cache: false,
   entry: './src/main.js',
   output: {
