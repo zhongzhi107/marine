@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     copy: require('./config/grunt/copy'),
 
     // 本地web服务器
-    connect: require('./config/grunt/connect')(),
+    connect: require('./config/grunt/connect'),
 
     watch: require('./config/grunt/watch'),
 

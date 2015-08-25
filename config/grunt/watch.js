@@ -1,8 +1,10 @@
 'use strict';
 
-module.exports = {
+import marine from '../marine';
+
+export default {
   options: {
-    livereload: require('../marine').port.liveReload
+    livereload: marine.port.liveReload
   },
   html: {
     files: [

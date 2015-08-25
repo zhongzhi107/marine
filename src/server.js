@@ -7,11 +7,11 @@ import App from './components/App';
 import router from './router-component';
 
 function readTemplateString() {
-  var filename = __dirname + '/templates/layout/default.html';
+  let filename = __dirname + '/templates/layout/default.html';
   return _.template(fs.readFileSync(filename, {encoding: 'utf8'}));
 }
 
-export default function (req, res, next) {
+export default (req, res, next) => {
   let pathname = url.parse(req.url).pathname;
   if (pathname === '/a') {
     res.setHeader('Content-Type', 'application/json');

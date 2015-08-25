@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+export default {
   html: {
     expand: true,
     cwd: '<%=ma.path.app%>/components/pages',
