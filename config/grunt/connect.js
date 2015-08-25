@@ -23,7 +23,7 @@ export default {
       livereload: ma.port.liveReload,
       middleware: (connect) => {
         return [
-          mountFolder(connect, ma.path.app + '/assets'),
+          mountFolder(connect, ma.path.app + '/public'),
           serverMiddleware,
           rewriteRequest,
           webpackDevMiddleware(webpack(webpackConfig), {
