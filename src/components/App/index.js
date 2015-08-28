@@ -1,85 +1,40 @@
-import React, { PropTypes } from 'react';
-import IndexPage from '../IndexPage';
+'use strict';
+
+import React, {Component} from 'react';
+import AppStore from '../../stores/AppStore';
+import ChatPage from '../ChatPage';
 import LoginPage from '../LoginPage';
-import UsercenterPage from '../UsercenterPage';
-import router from '../../router-component';
-import Store from '../../stores/Store';
-import Dispatcher from '../../dispatcher/Dispatcher';
-import { ActionTypes } from '../../constants/Constants';
-import {canUseDOM} from 'react/lib/ExecutionEnvironment';
 
-class App {
-  // static propTypes = {
-  //   path: PropTypes.string.isRequired,
-  //   onSetTitle: PropTypes.func.isRequired,
-  //   onSetMeta: PropTypes.func.isRequired,
-  //   onPageNotFound: PropTypes.func.isRequired
-  // };
+function getState() {
+  return {
+    me: AppStore.getMe()
+  };
+}
 
-  componentWillMount() {
-    if (canUseDOM) {
-      require('./App.less');
-    }
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = getState();
   }
 
   componentDidMount() {
-    window.addEventListener('popstate', this.handlePopState);
+    AppStore.addChangeListener(this._onChange.bind(this));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('popstate', this.handlePopState);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return this.props.path !== nextProps.path;
+    AppStore.removeChangeListener(this._onChange.bind(this));
   }
 
   render() {
-    // TODO: webpack cause warning.
-    //let page = require('../IndexPage');// + router[this.props.path]);
-    // let page = require('../' + router[this.props.path]);
-    //this.component = React.createElement(page);
-
-    switch (this.props.path) {
-
-      case '/':
-        this.setTitle(IndexPage.statics().title);
-        this.component = <IndexPage />;
-        break;
-
-      case '/login':
-        this.setTitle(LoginPage.statics().title);
-        this.component = <LoginPage />;
-        break;
-
-      case '/usercenter':
-        this.setTitle(UsercenterPage.statics().title);
-        this.component = <UsercenterPage />;
-        break;
-
-      default:
-        console.error('[Router error]' + this.props.path);
-    }
-
+    var isLogin = AppStore.getMe().isLogin;
     return (
-      <div>
-        {this.component}
-      </div>
+      isLogin ? <ChatPage /> : <LoginPage />
     );
   }
 
-  handlePopState() {
-    let path = window.location.pathname;
-    Dispatcher.dispatch({
-      type: ActionTypes.CHANGE_LOCATION,
-      path: path
-    });
-  }
-
-  setTitle(title) {
-    if (canUseDOM) {
-      document.title = title;
-    }
+  _onChange() {
+    this.setState(getState());
   }
 }
 

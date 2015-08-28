@@ -6,7 +6,7 @@ import webpackConfig from './webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import ma from '../marine';
 import routerApi from '../router-api';
-import serverMiddleware from '../../src/server';
+// import serverMiddleware from '../../src/server';
 import {rewriteRequest} from 'grunt-connect-route/lib/utils';
 
 let mountFolder = (connect, dir) => {
@@ -24,7 +24,7 @@ export default {
       middleware: (connect) => {
         return [
           mountFolder(connect, ma.path.app + '/public'),
-          serverMiddleware,
+          // serverMiddleware,
           rewriteRequest,
           webpackDevMiddleware(webpack(webpackConfig), {
             publicPath: '/js',
@@ -47,8 +47,8 @@ export default {
       middleware: (connect) => {
         return [
           mountFolder(connect, ma.path.dist),
-          rewriteRequest,
-          serverMiddleware
+          rewriteRequest//,
+          // serverMiddleware
         ];
       }
     }
