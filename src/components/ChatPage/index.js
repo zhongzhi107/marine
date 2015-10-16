@@ -151,7 +151,7 @@ class ChatPage extends React.Component {
         startId: 0,
         endId: 10
       },
-      okCallback: console.log,
+      okCallback: (json) => {console.log(json);},
       errCallback: console.error
     });
   }
