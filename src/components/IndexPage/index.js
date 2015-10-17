@@ -36,7 +36,7 @@ class IndexPage {
         subChannels: [
           { name: '酒店', url: '/hotel' },
           { name: '酒店团购', url: '/hotel' },
-          { name: '公寓', url: 'http://touch.gongyu.qunar.com/' },
+          { name: '公寓', url: 'http://touch.gongyu.xxx.com/' },
           { name: '今日特惠', url: '/hotel' },
           { name: '钟点房', url: '/hotel' },
           { name: '客栈民宿', url: '/hotel' },
