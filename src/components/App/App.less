@@ -1,4 +1,8 @@
-@import '../../../node_modules/normalize.css/normalize.css';
+
+html, body {
+  height: 100%;
+  font-size: 14px;
+}
 
 a {
   color: #000;
@@ -15,6 +19,10 @@ ul.inline {
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .hide {
   display: none!important;
 }
@@ -22,4 +30,35 @@ ul.inline {
 @font-face {
 	font-family: qunarpad;
 	src: url(/fonts/qunarpad.ttf);
+}
+
+#app {
+  height: 100%;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.main {
+  width: 100%;
+  max-width: 1000px;
+  min-width: 800px;
+  height: 100%;
+  max-height: 800px;
+  min-height: 600px;
+  margin: auto;
+  overflow: hidden;
+  background: #eee;
+}
+
+img.emoji {
+  height: 22px;
+  width: 22px;
+  margin: 0 .1em 0 .15em;
+  vertical-align: -0.38em;
 }

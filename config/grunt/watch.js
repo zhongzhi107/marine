@@ -8,23 +8,16 @@ export default {
   },
   html: {
     files: [
-      'src/index.html'
+      '<%=ma.path.app%>/public/index.html'
     ]
   },
   js: {
     files: [
-      'src/**/*.{js,css}'
+      '<%=ma.path.app%>/**/*.{js,css}'
     ],
     options: {
       //TODO: 暂时整页刷新
       reload: true
     }
-
-  // },
-  // css: {
-  //   files: ['app/css/*.{css,less}'],
-  //   tasks: [
-  //     'webpack'
-  //   ]
   }
 };

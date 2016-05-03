@@ -1,86 +1,48 @@
-import React, { PropTypes } from 'react';
-import IndexPage from '../IndexPage';
-import LoginPage from '../LoginPage';
-import UsercenterPage from '../UsercenterPage';
-import router from '../../router-component';
-import Store from '../../stores/Store';
-import Dispatcher from '../../dispatcher/Dispatcher';
-import { ActionTypes } from '../../constants/Constants';
-import {canUseDOM} from 'react/lib/ExecutionEnvironment';
+'use strict';
 
-class App {
-  // static propTypes = {
-  //   path: PropTypes.string.isRequired,
-  //   onSetTitle: PropTypes.func.isRequired,
-  //   onSetMeta: PropTypes.func.isRequired,
-  //   onPageNotFound: PropTypes.func.isRequired
-  // };
+import React, { Component } from 'react';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+import { Link } from 'react-router';
+// import { Button } from 'react-semantify';
+
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this._handleClick = this._handleClick.bind(this);
+  }
 
   componentWillMount() {
     if (canUseDOM) {
-      require('./App.less');
+      // require('./App.less');
     }
   }
 
   componentDidMount() {
-    window.addEventListener('popstate', this.handlePopState);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('popstate', this.handlePopState);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return this.props.path !== nextProps.path;
+  _handleClick() {
+    console.log('click');
   }
 
   render() {
-    // TODO: webpack cause warning.
-    //let page = require('../IndexPage');// + router[this.props.path]);
-    // let page = require('../' + router[this.props.path]);
-    //this.component = React.createElement(page);
-
-    switch (this.props.path) {
-
-      case '/':
-        this.setTitle(IndexPage.statics().title);
-        this.component = <IndexPage />;
-        break;
-
-      case '/login':
-        this.setTitle(LoginPage.statics().title);
-        this.component = <LoginPage />;
-        break;
-
-      case '/usercenter':
-        this.setTitle(UsercenterPage.statics().title);
-        this.component = <UsercenterPage />;
-        break;
-
-      default:
-        console.error('[Router error]' + this.props.path);
-    }
-
     return (
       <div>
-        {this.component}
+        <h1>这是导航栏1111</h1>
+        <ul>
+          <li><Link to="/user/123" activeClassName="active">Bob</Link></li>
+          <li><Link to="/user/abc" activeClassName="active">Sally</Link></li>
+        </ul>
+        {/*<Button color="red" onClick={this._handleClick}> Hello World!</Button>*/}
+        {this.props.children}
       </div>
     );
   }
 
-  handlePopState() {
-    let path = window.location.pathname;
-    Dispatcher.dispatch({
-      type: ActionTypes.CHANGE_LOCATION,
-      path: path
-    });
-  }
-
-  setTitle(title) {
-    if (canUseDOM) {
-      document.title = title;
-    }
-  }
 }
 
-export default App;
+// export default App;
+module.exports = App;

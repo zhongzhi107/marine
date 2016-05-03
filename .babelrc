@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "stage-0",
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    /* 注意插件的顺序 */
+    /* 私有属性插件一定要在装饰器插件前面 */
+    /* 和wapback配置的顺序有冲突 */
+    "transform-class-properties",
+    "babel-plugin-transform-decorators-legacy"
+  ]
+}

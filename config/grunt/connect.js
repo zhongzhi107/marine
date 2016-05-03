@@ -6,8 +6,10 @@ import webpackConfig from './webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import ma from '../marine';
 import routerApi from '../router-api';
-import serverMiddleware from '../../src/server';
 import {rewriteRequest} from 'grunt-connect-route/lib/utils';
+import serverRender from '../../serverRender';
+
+let compiler = webpack(webpackConfig.options);
 
 let mountFolder = (connect, dir) => {
   return connect.static(require('path').resolve(dir));
@@ -20,20 +22,15 @@ export default {
       port: grunt.option('port') || ma.port.www,
       hostname: '0.0.0.0',
       localhost: grunt.option('host') || 'localhost',
+      // keepalive: true,
       livereload: ma.port.liveReload,
       middleware: (connect) => {
         return [
-          mountFolder(connect, ma.path.app + '/assets'),
-          serverMiddleware,
+          serverRender,
+          mountFolder(connect, ma.path.app + '/public'),
           rewriteRequest,
-          webpackDevMiddleware(webpack(webpackConfig), {
-            publicPath: '/js',
-            //watchDelay: 5000,
-            //contentBase: '.tmp',
-            //inline: true,
-            // hot: true,
-            stats: {colors: true}
-          })
+          webpackDevMiddleware(compiler, webpackConfig.options.devMiddleware)//,
+          // require('webpack-hot-middleware')(compiler)
         ];
       }
     }
@@ -47,8 +44,8 @@ export default {
       middleware: (connect) => {
         return [
           mountFolder(connect, ma.path.dist),
-          rewriteRequest,
-          serverMiddleware
+          mountFolder(connect, ma.path.dist + '/views'),
+          rewriteRequest
         ];
       }
     }

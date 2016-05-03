@@ -6,9 +6,9 @@ export default {
       dot: true,
       src: [
         '.tmp',
-        '<%=ma.path.dist%>/*'
+        '<%=ma.path.dist%>/*',
       ]
     }]
   },
-  server: '.tmp'
+  dev: '.tmp'
 };

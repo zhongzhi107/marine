@@ -1,20 +1,52 @@
-import 'babel/polyfill';
+'use strict';
+
+import 'babel-polyfill';
 import React from 'react';
-import App from './components/App';
-import Dispatcher from './dispatcher/Dispatcher';
-import { ActionTypes } from './constants/Constants';
+import { render } from 'react-dom';
+import { browserHistory as history, Router, match } from 'react-router';
+// import routes from './routes';
 
-let path = decodeURI(window.location.pathname);
-let props = {
-  path: path
-};
-let element = React.createElement(App, props);
-React.render(element, document.getElementById('app'));
+const routes = {
+  path: '/',
 
-Dispatcher.register((action) => {
-  if (action.type === ActionTypes.CHANGE_LOCATION) {
-    console.log('====dispatcher change_location====', action);
-    element = React.cloneElement(element, {path: action.path});
-    React.render(element, document.getElementById('app'));
+  getChildRoutes(location, callback) {
+    require.ensure([], (require) => {
+      callback(null, [
+        require('./routes/about'),
+        require('./routes/user'),
+      ])
+    })
+  },
+
+  getIndexRoute(location, callback) {
+    require.ensure([], (require) => {
+      callback(null, {
+        component: require('./components/Home'),
+      })
+    })
+  },
+
+  getComponents(nextState, callback) {
+    require.ensure([], (require) => {
+      callback(null, require('./components/App'))
+    })
   }
-});
+}
+
+match({ history, routes }, (error, redirectLocation, renderProps) => {
+  render(
+    <Router {...renderProps} />,
+    document.getElementById('app')
+  );
+})
+// render(
+//   <Router
+//     history={browserHistory}
+//     routes={routes}
+//   />,
+//   document.getElementById('app')
+// );
+
+if (module.hot) {
+  module.hot.accept();
+}
