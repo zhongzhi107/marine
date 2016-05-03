@@ -11,8 +11,13 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 * babeljs
 * es6
 * gruntjs
-* semantic-ui
 * eslint
+
+## TODO LIST
+* 用webpack dev server替换grunt
+* 开发环境的文件热加载
+* 整理package.json
+* 增加注释文档
 
 ## 安装
 
@@ -29,7 +34,7 @@ $ open http://localhost:3000
 ├── /config/                    # 项目配置文件目录
 │   ├── /env/                   # 环境差异配置文件
 │   │   ├── /beta.js            # Beta环境配置文件
-│   │   ├── /development.js     # DEV环境配置文件
+│   │   ├── /development.js     # Dev环境配置文件
 │   │   └── /production.js      # 生产环境配置文件
 │   ├── /grunt/                 # Grunt任务配置文件
 │   ├── /marine.js              # 项目综合配置文件
@@ -70,11 +75,3 @@ $ open http://localhost:3000
 
 ### git
 * https://github.com/aseaday/git-style-guide
-
-#### 分支名称
-* yyyymmdd_keyword_pmo项目编号
-* 使用下划线链接
-* keyword全部小写，不要太长，能大概标识当前分支的修改即可
-* 项目如果需要同时修改前后端项目，尽量使用相同的名称
-* 好的名称，如 20140124_searchinput_WAPHOTEL-3976， 20131227_safestring_DZW-123
-* 不好的名称，如 20140124_search_input， 20140124_searchInput
