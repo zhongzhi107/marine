@@ -3,6 +3,6 @@
 export default {
 
   // CDN根目录
-  cdnRoot: 'http://mobileqzz.beta.qunar.com/ochat/prd',
+  cdnRoot: 'http://.beta.test.com',
 
 };

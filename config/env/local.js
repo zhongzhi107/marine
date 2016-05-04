@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+export default {
 
   // CDN根目录
   cdnRoot: '',
