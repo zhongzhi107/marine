@@ -6,7 +6,7 @@ import PageComponent from '../PageComponent';
 import preload from '../../decorators/preload';
 
 @preload()
-class User extends PageComponent {
+export default class extends PageComponent {
   static title = '用户<%=userID%>';
   static keywords = '关键字1';
   static description = '描述文字';
@@ -23,6 +23,4 @@ class User extends PageComponent {
       </div>
     )
   }
-}
-
-module.exports = User;
+};

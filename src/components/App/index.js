@@ -3,9 +3,8 @@
 import React, { Component } from 'react';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import { Link } from 'react-router';
-// import { Button } from 'react-semantify';
 
-class App extends Component {
+export default class App extends Component {
 
   constructor(props) {
     super(props);
@@ -43,6 +42,3 @@ class App extends Component {
   }
 
 }
-
-// export default App;
-module.exports = App;

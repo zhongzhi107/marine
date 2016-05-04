@@ -9,7 +9,7 @@ import preload from '../../decorators/preload';
 
 // 2. 给组件类加上装饰器
 @preload()
-class Home extends PageComponent {
+export default class extends PageComponent {
 // export default class extends PageComponent {
 
   constructor(props) {
@@ -50,6 +50,4 @@ class Home extends PageComponent {
       </div>
     )
   }
-}
-
-module.exports = Home;
+};

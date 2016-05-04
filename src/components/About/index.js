@@ -7,7 +7,7 @@ import preload from '../../decorators/preload';
 import fetch from '../../core/fetch';
 
 @preload()
-class About extends PageComponent {
+export default class extends PageComponent {
 
   constructor(props) {
     super(props);
@@ -41,6 +41,4 @@ class About extends PageComponent {
       </div>
     )
   }
-}
-
-module.exports = About;
+};

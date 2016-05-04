@@ -41,4 +41,4 @@ let common = {
 
 };
 
-module.exports = Object.assign({}, common, profile);
+export default Object.assign({}, common, profile);

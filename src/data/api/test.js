@@ -6,7 +6,7 @@
 
 'use strict';
 
-module.exports = (req, res) => {
+export default (req, res) => {
   let data = {
     name: 'Joe',
     list: [

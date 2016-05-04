@@ -15,7 +15,7 @@ import usemin from './config/grunt/usemin';
 import watch from './config/grunt/watch';
 import webpack from './config/grunt/webpack';
 
-module.exports = function(grunt) {
+export default (grunt) => {
 
   // node-modules是提供给QDR编译环境使用的参数
   // 本机开发可以忽略
