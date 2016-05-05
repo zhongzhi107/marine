@@ -82,7 +82,7 @@ export default (grunt) => {
   grunt.registerTask('serve', (target) => {
     const DEV = 'dev';
     target = target || DEV;
-    let taskList = [`clean:${target}`, 'eslint'];
+    let taskList = [`clean:${target}`, /*'eslint'*/];
     if (target !== DEV) {
       taskList.push('build');
     }

@@ -21,6 +21,7 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 * 区分history.back和首次进入
 * 前端props预加载完成后再进入目标页面
 * 模拟进度条
+* 只包含所需要的配置文件（webpack2)
 
 ## 安装
 

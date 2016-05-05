@@ -55,14 +55,14 @@ export default {
         colors: DEBUG
       }
     },
-    // eslint: {
-    //   configFile: '.eslintrc',
-    // },
     module: {
+      preLoaders: [
+        {test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/}
+      ],
       loaders: [
         { test: /\.css$/, loader: STYLE_LOADER },
         { test: /\.less$/, loader: STYLE_LOADER + '!less' },
-        { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader',
+        { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/,
           query: {
             // 注意插件的顺序
             // 浏览器端渲染时，装饰器插件一定要在私有属性插件前面，这个顺序和服务器端渲染有冲突
