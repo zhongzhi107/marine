@@ -19,7 +19,6 @@ if (!process.browser) {
 let common = {
   port:  {
     www: 3000,
-    liveReload: 35734
   },
 
   path: {

@@ -24,7 +24,8 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 - [x]开发环境的文件热加载
 - [x]react-router和HMR冲突，导致HMR刷新模块失败
 - [ ]测试用例
-- [ ]md5
+- [x]md5
+- [x]前后端使用同一个路由文件
 
 ## 安装
 

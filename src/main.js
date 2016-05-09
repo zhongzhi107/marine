@@ -23,7 +23,8 @@ const routes = {
       callback(null, {
         component: require('./components/Home'),
       })
-    })
+    });
+
   },
 
   getComponents(nextState, callback) {
@@ -33,12 +34,16 @@ const routes = {
   }
 }
 
-match({ history, routes }, (error, redirectLocation, renderProps) => {
-  render(
-    <Router {...renderProps} />,
-    document.getElementById('app')
-  );
-})
+if (!module.parent) {
+  match({ history, routes }, (error, redirectLocation, renderProps) => {
+    render(
+      <Router {...renderProps} />,
+      document.getElementById('app')
+    );
+  });
+}
+
+export default routes;
 // render(
 //   <Router
 //     history={browserHistory}

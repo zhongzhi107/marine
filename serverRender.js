@@ -4,7 +4,8 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import template from 'lodash.template';
-import routes from './src/routes';
+import './src/utils/require';
+import routes from './src/main';
 
 const META_KEYS = ['title', 'keywords', 'description', 'body'];
 
