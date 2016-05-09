@@ -1,11 +1,8 @@
 'use strict';
 
 import path from 'path';
-
-// import ma from './config/marine';
 import timeGrunt from 'time-grunt';
 import connect from './config/grunt/connect';
-// import webpack from './config/grunt/webpack';
 
 export default (grunt) => {
 

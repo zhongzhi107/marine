@@ -2,7 +2,7 @@
 
 import request from 'superagent';
 import url from 'url';
-import ma from '../../config/marine';
+import marine from '../../config/marine';
 
 var makeURL = (endpoint) => {
   // 同域地址和外域地址区分处理
@@ -12,7 +12,7 @@ var makeURL = (endpoint) => {
     let urlObject = url.parse(endpoint);
     return urlObject.protocol ?
       endpoint :
-      `http://localhost:${ma.port.www}${endpoint}`;
+      `http://localhost:${marine.port.www}${endpoint}`;
   }
 };
 

@@ -30,12 +30,7 @@ const STYLE_LOADER = 'style!css' + minimize + AUTOPREFIXER_LOADER;
 // webpack插件
 let plugins = [
   new webpack.DefinePlugin({
-    // NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-    NODE_ENV: true,
-    __LOCAL__: process.env.NODE_ENV === 'local',
-    __DEV__: process.env.NODE_ENV === 'development',
-    __BETA__: process.env.NODE_ENV === 'beta',
-    __PROD__: process.env.NODE_ENV === 'production',
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV)
   }),
   // new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),
@@ -72,7 +67,7 @@ export default {
   output: {
     // chunkFilename: '[name].[chunkhash].js',
     filename: '[name].js',//outputFilename,
-    path: path.join(process.cwd(), '<%=ma.path.dist%>', 'js'),
+    path: path.join(process.cwd(), marine.path.dist, 'js'),
     publicPath: '/js',
   },
   module: {
@@ -96,6 +91,9 @@ export default {
     ]
   },
   resolve: {
+    alias: {
+      './config/env/index': './env/' + process.env.NODE_ENV
+    },
     // 设置webpack体系下require默认目录
     modulesDirectories: [
       `${marine.path.app}`,
