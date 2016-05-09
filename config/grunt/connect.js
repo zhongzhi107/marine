@@ -24,7 +24,6 @@ export default {
       hostname: '0.0.0.0',
       localhost: grunt.option('host') || 'localhost',
       keepalive: true,
-      // livereload: ma.port.liveReload,
       middleware: (connect) => {
         return [
           serverRender,

@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -27,6 +28,21 @@ export default (req, res, next) => {
       META_KEYS.forEach((key) => {
         meta[key] = '';
       });
+
+      // 替换成混淆后的文件名
+      // webpack-assets.json的数据如下：
+      // {"main":{"js":"main.3148662cd2b83e1ae5f8.js"}}
+      let webpackAssets = './prd/webpack-assets.json';
+      if (fs.existsSync(path.join(process.cwd(), webpackAssets))) {
+        let stats = require(webpackAssets);
+        for (let bundleName in stats) {
+          for (let assetKind in stats[bundleName]) {
+            let target = stats[bundleName][assetKind];
+            let source = `${bundleName}.${assetKind}`;
+            templateString = templateString.replace(source, target);
+          }
+        }
+      }
 
       // 取最下层的组件作为目标组件
       let Component = renderProps.components[renderProps.components.length - 1];

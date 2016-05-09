@@ -4,6 +4,7 @@ import path from 'path';
 import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import AssetsWebpackPlugin from 'assets-webpack-plugin';
 import marine from '../marine';
 
 // 是否为debug模式
@@ -34,7 +35,11 @@ let plugins = [
   }),
   // new webpack.optimize.OccurenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin()
+  new webpack.NoErrorsPlugin(),
+  new AssetsWebpackPlugin({
+    path: path.join(process.cwd(), marine.path.dist),
+    fullPath: false,
+  }),
 ];
 
 if (!DEBUG){
@@ -45,7 +50,7 @@ if (!DEBUG){
     new CopyWebpackPlugin([
       {
         from: `${marine.path.app}/public/**/*`,
-        to: marine.path.dist,
+        to: path.join(process.cwd(), marine.path.dist),
       }
     ]),
     new webpack.optimize.UglifyJsPlugin({
@@ -59,16 +64,15 @@ if (!DEBUG){
 }
 
 export default {
-  cache: false,
   entry: [
     'webpack-hot-middleware/client',//?path=/__webpack_hmr&timeout=20000',
     `./${marine.path.app}/main.js`
   ],
   output: {
     // chunkFilename: '[name].[chunkhash].js',
-    filename: '[name].js',//outputFilename,
+    filename: '[name].[hash].js',//outputFilename,
     path: path.join(process.cwd(), marine.path.dist, 'js'),
-    publicPath: '/js',
+    publicPath: '/js/',
   },
   module: {
     preLoaders: [
