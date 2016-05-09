@@ -8,6 +8,14 @@ import routes from './src/routes';
 
 const META_KEYS = ['title', 'keywords', 'description', 'body'];
 
+function render(data, res, renderProps, meta, templateString) {
+  renderProps.params.observe = data;
+  meta.pageInitialState = JSON.stringify(data);
+  // TODO 用data做二次替换
+  meta.body = renderToString(<RouterContext {...renderProps} />);
+  res.end(template(templateString)(meta));
+}
+
 export default (req, res, next) => {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
@@ -58,20 +66,16 @@ export default (req, res, next) => {
           Component
             .observe()
             .then((data) => {
-              renderProps.params.observe = data;
-              meta.pageInitialState = JSON.stringify(data);
-              // TODO 用data做二次替换
-              meta.body = renderToString(<RouterContext {...renderProps} />);
-              res.end(template(templateString)(meta));
+              render(data, res, renderProps, meta, templateString);
+            }, (reason) => {
+              render(Component.defaultState, res, renderProps, meta, templateString);
             })
             .catch(() => {
               // 接口出现问题
-              meta.body = renderToString(<RouterContext {...renderProps} />);
-              res.end(template(templateString)(meta));
+              render(Component.defaultState, res, renderProps, meta, templateString);
             });
         } else {
-          meta.body = renderToString(<RouterContext {...renderProps} />);
-          res.end(template(templateString)(meta));
+          render(Component.defaultState, res, renderProps, meta, templateString);
         }
       } else {
         console.log('Component not found');

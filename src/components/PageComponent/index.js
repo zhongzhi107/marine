@@ -14,7 +14,9 @@ export default class PageComponent extends Component {
   static defaultState = {};
 
   static observe(params) {
-    return Promise.resolve({});
+    return Promise.reject(
+      'PageComponent subclass should implement observe() static class method'
+    );
     // invariant(
     //   false,
     //   'PageComponent subclass should implement observe() static class method'
@@ -24,7 +26,7 @@ export default class PageComponent extends Component {
   constructor(props) {
     super(props);
 
-    // 支持webpack HRM功能 
+    // 支持webpack HRM功能
     if (module.hot) {
       module.hot.accept();
     }

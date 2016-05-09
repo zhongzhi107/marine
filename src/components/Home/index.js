@@ -6,7 +6,7 @@ import PageComponent from '../PageComponent';
 import fetch from '../../core/fetch';
 // 1. 引入preload模块
 import preload from '../../decorators/preload';
-import marine from '../../../config/marine';
+// import marine from '../../../config/marine';
 
 // 2. 给组件类加上装饰器
 @preload()
@@ -34,8 +34,6 @@ export default class extends PageComponent {
   }
 
   render() {
-
-    console.log('hot', marine.cdnRoot);
 
     // 6. 从props中获取数据
     let state = this.props;
