@@ -46,7 +46,3 @@ match({ history, routes }, (error, redirectLocation, renderProps) => {
 //   />,
 //   document.getElementById('app')
 // );
-
-if (module.hot) {
-  module.hot.accept();
-}

@@ -77,6 +77,11 @@ export default {
     loaders: [
       { test: /\.css$/, loader: STYLE_LOADER },
       { test: /\.less$/, loader: STYLE_LOADER + '!less' },
+      {
+        test: /\.js$/,
+        loader: 'react-hot',
+        exclude: /node_modules/
+      },
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/,
         query: {
           // 注意插件的顺序
@@ -87,7 +92,8 @@ export default {
             'transform-class-properties'
           ]
         }
-      }
+      },
+
     ]
   },
   resolve: {

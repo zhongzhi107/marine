@@ -20,4 +20,13 @@ export default class PageComponent extends Component {
     //   'PageComponent subclass should implement observe() static class method'
     // );
   }
+
+  constructor(props) {
+    super(props);
+
+    // 支持webpack HRM功能 
+    if (module.hot) {
+      module.hot.accept();
+    }
+  }
 }

@@ -35,14 +35,14 @@ export default class extends PageComponent {
 
   render() {
 
-    console.log('7', marine.cdnRoot);
+    console.log('hot', marine.cdnRoot);
 
     // 6. 从props中获取数据
     let state = this.props;
     return (
       <div>
         <h1>Home, {state.name}</h1>
-        <Link to="/about">关于我们11</Link>
+        <Link to="/about">关于我们</Link>
         <ul>
           {
             state.list.map((item, index) => (
