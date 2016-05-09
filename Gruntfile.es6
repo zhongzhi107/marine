@@ -1,7 +1,6 @@
 'use strict';
 
 import path from 'path';
-// import timeGrunt from 'time-grunt';
 import connect from './config/grunt/connect';
 
 export default (grunt) => {
@@ -25,13 +24,7 @@ export default (grunt) => {
     }
   });
 
-  // 各模块运行所消耗的时间，可以用来指导优化编译过程
-  // timeGrunt(grunt);
-
   grunt.initConfig({
-    // 项目配置
-    // ma: ma,
-
     // 本地web服务器
     connect: connect,
 
