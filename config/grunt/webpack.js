@@ -7,110 +7,134 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import AssetsWebpackPlugin from 'assets-webpack-plugin';
 import marine from '../marine';
 
-// 是否为debug模式
-const DEBUG = process.env.NODE_ENV === 'local';
+const cwd = process.cwd();
+const app = marine.path.app;
+const dist = marine.path.dist;
+/**
+ * options:
+ * options.hot
+ * options.release
+ * options.longTermCaching
+ * options.
+ * options.
+ */
+module.exports = function(options) {
+  // 是否为debug模式
+  // const DEBUG = process.env.NODE_ENV === 'local';
 
-// css是否需要代码压缩
-const minimize = DEBUG ? '' : '?minimize';
+  // css是否需要代码压缩
+  // const minimize = DEBUG ? '' : '?minimize';
+  //
+  // // autoprefixer兼容的浏览器列表
+  // const AUTOPREFIXER_LOADER = '!autoprefixer?' + JSON.stringify({
+  //   browsers: [
+  //     'Android 2.3',
+  //     'Android >= 4',
+  //     'Chrome >= 20',
+  //     'Firefox >= 24',
+  //     'Explorer >= 8',
+  //     'iOS >= 6',
+  //     'Safari >= 6'
+  //   ]
+  // });
 
-// autoprefixer兼容的浏览器列表
-const AUTOPREFIXER_LOADER = '!autoprefixer?' + JSON.stringify({
-  browsers: [
-    'Android 2.3',
-    'Android >= 4',
-    'Chrome >= 20',
-    'Firefox >= 24',
-    'Explorer >= 8',
-    'iOS >= 6',
-    'Safari >= 6'
-  ]
-});
+  // const STYLE_LOADER = 'style!css' + minimize + AUTOPREFIXER_LOADER;
 
-const STYLE_LOADER = 'style!css' + minimize + AUTOPREFIXER_LOADER;
+  let entry = [
+    `./${app}/main.js`
+  ];
 
-// webpack插件
-let plugins = [
-  new webpack.DefinePlugin({
-    NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-  }),
-  // new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin(),
-  new AssetsWebpackPlugin({
-    path: path.join(process.cwd(), marine.path.dist),
-    fullPath: false,
-  }),
-];
-
-if (!DEBUG){
-  plugins.push(
-    new CleanWebpackPlugin(['.tmp', marine.path.dist], {
-      root: process.cwd()
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: `${marine.path.app}/public/**/*`,
-        to: path.join(process.cwd(), marine.path.dist),
-      }
-    ]),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        'drop_debugger': true,
-        'drop_console': true
-      }
-    })
-  );
-}
-
-export default {
-  entry: [
-    'webpack-hot-middleware/client',//?path=/__webpack_hmr&timeout=20000',
-    `./${marine.path.app}/main.js`
-  ],
-  output: {
-    // chunkFilename: '[name].[chunkhash].js',
-    filename: '[name].[hash].js',//outputFilename,
-    path: path.join(process.cwd(), marine.path.dist, 'js'),
+  let output = {
+    filename: '[name]' + (options.longTermCaching ? '.[hash]' : '') + '.js',
+    path: path.join(cwd, dist, 'js'),
     publicPath: '/js/',
-  },
-  module: {
-    preLoaders: [
-      {test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/}
-    ],
-    loaders: [
-      { test: /\.css$/, loader: STYLE_LOADER },
-      { test: /\.less$/, loader: STYLE_LOADER + '!less' },
-      {
-        test: /\.js$/,
-        loader: 'react-hot',
-        exclude: /node_modules/
-      },
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/,
-        query: {
-          // 注意插件的顺序
-          // 浏览器端渲染时，装饰器插件一定要在私有属性插件前面，这个顺序和服务器端渲染有冲突
-          // todo 等官方decorator插件出来后，和.babelrc的配置统一
-          plugins: [
-            'babel-plugin-transform-decorators-legacy',
-            'transform-class-properties'
-          ]
-        }
-      },
+  };
 
-    ]
-  },
-  resolve: {
-    alias: {
-      './config/env/index': './env/' + process.env.NODE_ENV
+  // webpack插件
+  let plugins = [
+    new CleanWebpackPlugin(dist, {root: cwd}),
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+    }),
+    new webpack.NoErrorsPlugin()
+  ];
+
+  if (options.hot) {
+    entry.push('webpack-hot-middleware/client');
+    plugins.push(new webpack.HotModuleReplacementPlugin());
+  }
+
+  if (options.longTermCaching) {
+    plugins.push(
+      new AssetsWebpackPlugin({
+        path: path.join(cwd, dist),
+        fullPath: false,
+      })
+    );
+  }
+
+  if (options.release) {
+    plugins.push(
+      new webpack.BannerPlugin('Marine Team'),
+      new CopyWebpackPlugin([
+        {
+          from: `${app}/public/**/*`,
+          to: path.join(cwd, dist),
+        }
+      ]),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+          'drop_debugger': true,
+          'drop_console': true
+        }
+      })
+    );
+  }
+
+
+  return {
+    entry,
+    output,
+    plugins,
+    module: {
+      preLoaders: [
+        {
+          test: /\.js$/,
+          loader: 'eslint-loader',
+          exclude: /node_modules/
+        }
+      ],
+      loaders: [
+        // { test: /\.css$/, loader: STYLE_LOADER },
+        // { test: /\.less$/, loader: STYLE_LOADER + '!less' },
+        {
+          test: /\.js$/,
+          loader: 'react-hot',
+          exclude: /node_modules/
+        },
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/,
+          query: {
+            // 注意插件的顺序
+            // 浏览器端渲染时，装饰器插件一定要在私有属性插件前面，这个顺序和服务器端渲染有冲突
+            // todo 等官方decorator插件出来后，和.babelrc的配置统一
+            plugins: [
+              'babel-plugin-transform-decorators-legacy',
+              'transform-class-properties'
+            ]
+          }
+        },
+
+      ]
     },
-    // 设置webpack体系下require默认目录
-    modulesDirectories: [
-      `${marine.path.app}`,
-      'node_modules'
-    ],
-    // 设置webpack体系下require默认文件类型
-    extensions: ['', '.json', '.js']
-  },
-  plugins: plugins
+    resolve: {
+      alias: {
+        './config/env/index': './env/' + process.env.NODE_ENV
+      },
+    }
+  };
+
 };

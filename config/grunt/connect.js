@@ -2,13 +2,13 @@
 
 import grunt from 'grunt';
 import webpack from 'webpack';
-import webpackConfig from './webpack';
+import webpackConfig from './webpack-development';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import marine from '../marine';
 import routerApi from '../router-api';
 import {rewriteRequest} from 'grunt-connect-route/lib/utils';
-import serverRender from '../../serverRender';
+import serverRender from '../../src/middlewares/serverRender';
 
 let compiler = webpack(webpackConfig);
 
