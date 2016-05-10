@@ -24,7 +24,6 @@ const routes = {
         component: require('./components/Home'),
       })
     });
-
   },
 
   getComponents(nextState, callback) {

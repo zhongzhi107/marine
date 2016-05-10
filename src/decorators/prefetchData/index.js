@@ -4,7 +4,7 @@ import React from 'react';
 import AsyncComponent from './AsyncComponent';
 // import invariant from 'fbjs/lib/invariant';
 
-function preload() {
+function prefetchData() {
   return (Target) => {
     return class extends AsyncComponent {
       static observe(params) {
@@ -25,4 +25,4 @@ function preload() {
 
 }
 
-export default preload;
+export default prefetchData;

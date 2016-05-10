@@ -3,9 +3,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PageComponent from '../PageComponent';
-import preload from '../../decorators/preload';
+import prefetchData from '../../decorators/prefetchData';
 
-@preload()
+@prefetchData()
 export default class extends PageComponent {
   static title = '用户<%=userID%>';
   static keywords = '关键字1';

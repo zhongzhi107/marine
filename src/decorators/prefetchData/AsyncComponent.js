@@ -33,6 +33,8 @@ export default class AsyncComponent extends Component {
           target.observe().then((data) => {
             this.state = data;
             this.forceUpdate();
+          }).catch(() => {
+            console.log('Promise rejected');
           });
         } catch (e) {
           console.warn('observe静态方法调用出错，它应该返回一个Promise');

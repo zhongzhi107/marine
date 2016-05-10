@@ -5,11 +5,11 @@ import { Link } from 'react-router';
 import PageComponent from '../PageComponent';
 import fetch from '../../utils/fetch';
 // 1. 引入preload模块
-import preload from '../../decorators/preload';
+import prefetchData from '../../decorators/prefetchData';
 // import marine from '../../../config/marine';
 
 // 2. 给组件类加上装饰器
-@preload()
+@prefetchData()
 export default class extends PageComponent {
 // export default class extends PageComponent {
 

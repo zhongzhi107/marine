@@ -3,10 +3,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PageComponent from '../PageComponent';
-import preload from '../../decorators/preload';
+import prefetchData from '../../decorators/prefetchData';
 import fetch from '../../utils/fetch';
 
-@preload()
+@prefetchData()
 export default class extends PageComponent {
 
   constructor(props) {
