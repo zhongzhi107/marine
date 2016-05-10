@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PageComponent from '../PageComponent';
-import fetch from '../../core/fetch';
+import fetch from '../../utils/fetch';
 // 1. 引入preload模块
 import preload from '../../decorators/preload';
 // import marine from '../../../config/marine';
