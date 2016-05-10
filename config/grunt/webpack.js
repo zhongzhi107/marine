@@ -47,8 +47,13 @@ module.exports = function(options) {
   ];
 
   let output = {
+    // 使用code-splitting打出的chunk包文件名
+    chunkFilename: '[name]' + (options.longTermCaching ? '.[chunkhash]' : '') + '.js',
+    // 入口文件打包后的文件名
     filename: '[name]' + (options.longTermCaching ? '.[hash]' : '') + '.js',
+    // 编译产出物输出路径
     path: path.join(cwd, dist, 'js'),
+    // dev-server模式下动态文件输出路径
     publicPath: '/js/',
   };
 
@@ -61,11 +66,50 @@ module.exports = function(options) {
     new webpack.NoErrorsPlugin()
   ];
 
+  let resolve = {
+    alias: {
+      './config/env/index': './env/' + process.env.NODE_ENV
+    },
+  };
+
+  let moduleConfig = {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: nodeModuleReg
+      }
+    ],
+    loaders: [
+      // { test: /\.css$/, loader: STYLE_LOADER },
+      // { test: /\.less$/, loader: STYLE_LOADER + '!less' },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: nodeModuleReg,
+        query: {
+          // 注意插件的顺序
+          // 浏览器端渲染时，装饰器插件一定要在私有属性插件前面，这个顺序和服务器端渲染有冲突
+          // todo 等官方decorator插件出来后，和.babelrc的配置统一
+          plugins: [
+            'babel-plugin-transform-decorators-legacy',
+            'transform-class-properties'
+          ]
+        }
+      },
+    ]
+  };
+
   if (options.hot) {
     entry.push('webpack-hot-middleware/client');
     plugins.push(
       new webpack.HotModuleReplacementPlugin()
     );
+    moduleConfig.loaders.unshift({
+      test: /\.js$/,
+      loader: 'react-hot',
+      exclude: nodeModuleReg
+    });
   }
 
   if (options.longTermCaching) {
@@ -107,44 +151,8 @@ module.exports = function(options) {
     entry,
     output,
     plugins,
-    module: {
-      preLoaders: [
-        {
-          test: /\.js$/,
-          loader: 'eslint-loader',
-          exclude: nodeModuleReg
-        }
-      ],
-      loaders: [
-        // { test: /\.css$/, loader: STYLE_LOADER },
-        // { test: /\.less$/, loader: STYLE_LOADER + '!less' },
-        {
-          test: /\.js$/,
-          loader: 'react-hot',
-          exclude: nodeModuleReg
-        },
-        {
-          test: /\.js$/,
-          loader: 'babel-loader',
-          exclude: nodeModuleReg,
-          query: {
-            // 注意插件的顺序
-            // 浏览器端渲染时，装饰器插件一定要在私有属性插件前面，这个顺序和服务器端渲染有冲突
-            // todo 等官方decorator插件出来后，和.babelrc的配置统一
-            plugins: [
-              'babel-plugin-transform-decorators-legacy',
-              'transform-class-properties'
-            ]
-          }
-        },
-
-      ]
-    },
-    resolve: {
-      alias: {
-        './config/env/index': './env/' + process.env.NODE_ENV
-      },
-    }
+    resolve,
+    module: moduleConfig,
   };
 
 };
