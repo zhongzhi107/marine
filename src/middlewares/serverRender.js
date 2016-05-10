@@ -4,7 +4,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import template from 'lodash.template';
-import '../utils/require－polyfill';
+import '../utils/require-polyfill';
 import routes from '../main';
 
 const META_KEYS = ['title', 'keywords', 'description', 'body'];
