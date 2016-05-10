@@ -10,12 +10,14 @@ import marine from '../marine';
 const cwd = process.cwd();
 const app = marine.path.app;
 const dist = marine.path.dist;
+const nodeModuleReg = /node_modules/;
+
 /**
  * options:
  * options.hot
  * options.release
  * options.longTermCaching
- * options.
+ * options.minimize
  * options.
  */
 module.exports = function(options) {
@@ -61,7 +63,9 @@ module.exports = function(options) {
 
   if (options.hot) {
     entry.push('webpack-hot-middleware/client');
-    plugins.push(new webpack.HotModuleReplacementPlugin());
+    plugins.push(
+      new webpack.HotModuleReplacementPlugin()
+    );
   }
 
   if (options.longTermCaching) {
@@ -78,10 +82,16 @@ module.exports = function(options) {
       new webpack.BannerPlugin('Marine Team'),
       new CopyWebpackPlugin([
         {
-          from: `${app}/public/**/*`,
+          context: `${app}/public`,
+          from: '**/*',
           to: path.join(cwd, dist),
         }
-      ]),
+      ])
+    );
+  }
+
+  if (options.minimize) {
+    plugins.push(
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
@@ -102,7 +112,7 @@ module.exports = function(options) {
         {
           test: /\.js$/,
           loader: 'eslint-loader',
-          exclude: /node_modules/
+          exclude: nodeModuleReg
         }
       ],
       loaders: [
@@ -111,12 +121,12 @@ module.exports = function(options) {
         {
           test: /\.js$/,
           loader: 'react-hot',
-          exclude: /node_modules/
+          exclude: nodeModuleReg
         },
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          exclude: /node_modules/,
+          exclude: nodeModuleReg,
           query: {
             // 注意插件的顺序
             // 浏览器端渲染时，装饰器插件一定要在私有属性插件前面，这个顺序和服务器端渲染有冲突

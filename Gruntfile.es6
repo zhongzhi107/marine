@@ -2,6 +2,7 @@
 
 import path from 'path';
 import connect from './config/grunt/connect';
+import webpackConfig from './config/grunt/webpack-production';
 
 export default (grunt) => {
 
@@ -28,6 +29,9 @@ export default (grunt) => {
     // 本地web服务器
     connect: connect,
 
+    webpack: {
+      build: webpackConfig
+    }
   });
 
   // 注册默认任务
@@ -35,5 +39,9 @@ export default (grunt) => {
     'configureRewriteRules',
     'connect:dev'
   ]);
+
+  grunt.registerTask('build', [
+    'webpack'
+  ])
 
 };
