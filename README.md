@@ -14,7 +14,7 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 * eslint
 
 ## TODO LIST
-- [ ]整理package.json
+- [ ]整理package.json，区分dependencies和devDependencies
 - [ ]增加注释文档
 - [ ]区分history.back和首次进入
 - [ ]前端props预加载完成后再进入目标页面
@@ -22,14 +22,20 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 - [ ]测试用例
 - [ ]Component错误在服务器端渲染时不报错
 - [ ]生产环境代码运行效率
-- [ ]build
+- [ ]build，将版本号替换到html中
+- [ ]PostCSS
 
 ## 安装
 
 ```shell
-$ npm install --registry=https://registry.npm.taobao.org
-$ npm start
-$ open http://localhost:3000
+# 安装依赖包
+npm install --registry=https://registry.npm.taobao.org
+
+# 启动调试模式
+npm start
+
+# 浏览器中浏览网页
+http://localhost:3000
 ```
 
 ## 目录结构
@@ -45,12 +51,14 @@ $ open http://localhost:3000
 │   ├── /marine.js              # 项目综合配置文件
 │   └── /router-api.js          # APIs接口mock路由配置文件
 ├── /docs/                      # 文档
-├── /node_modules/              # 依赖包
 ├── /prd/                       # 项目编译输出目录
 ├── /src/                       # 项目源码目录
 │   ├── /components/            # React组件
 │   ├── /data/                  # Mock数据文件
+│   ├── /decorators/            # 装饰器
+│   ├── /middlewares/           # 中间件
 │   ├── /public/                # 静态资源目录
+│   ├── /routes/                # 路由配置
 │   ├── /utils/                 # Utility classes and functions
 │   └── /main.js                # startup script
 │── .babelrc                    # babel配置
@@ -59,7 +67,6 @@ $ open http://localhost:3000
 │── Gruntfile.es6               # 用ES6编写的Grunt主配置
 │── Gruntfile.js                # Grunt入口
 │── package.json
-│── pom.xml                     # 与后端关联的Maven配置
 └── README.md                   
 ```
 
