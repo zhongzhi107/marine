@@ -25,7 +25,7 @@ let common = {
     // app src
     app: 'src',
     // dist
-    dist: 'prd'
+    dist: 'dist'
   },
 
   assetsType: [

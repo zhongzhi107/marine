@@ -1,9 +1,11 @@
 'use strict';
 
+import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import ReplaceHashWebpackPlugin from 'replace-hash-webpack-plugin';
 import AssetsWebpackPlugin from 'assets-webpack-plugin';
 import marine from '../marine';
 
@@ -63,7 +65,7 @@ module.exports = function(options) {
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
   ];
 
   let resolve = {
@@ -123,14 +125,21 @@ module.exports = function(options) {
 
   if (options.release) {
     plugins.push(
-      new webpack.BannerPlugin('Marine Team'),
+      new webpack.BannerPlugin({
+        banner: fs.readFileSync(path.join(cwd, 'LICENSE'), { encoding: 'utf8' }),
+        entryOnly: true
+      }),
       new CopyWebpackPlugin([
         {
           context: `${app}/public`,
           from: '**/*',
           to: path.join(cwd, dist),
         }
-      ])
+      ]),
+      new ReplaceHashWebpackPlugin({
+        src: `${app}/public/index.html`,
+        dest: `${dist}/index.html`,
+      }),
     );
   }
 
