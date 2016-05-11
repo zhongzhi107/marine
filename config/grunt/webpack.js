@@ -129,13 +129,11 @@ module.exports = function(options) {
         banner: fs.readFileSync(path.join(cwd, 'LICENSE'), { encoding: 'utf8' }),
         entryOnly: true
       }),
-      new CopyWebpackPlugin([
-        {
-          context: `${app}/public`,
-          from: '**/*',
-          to: path.join(cwd, dist),
-        }
-      ]),
+      new CopyWebpackPlugin([{
+        context: `${app}/public`,
+        from: '**/*',
+        to: path.join(cwd, dist),
+      }]),
       new ReplaceHashWebpackPlugin({
         src: `${app}/public/index.html`,
         dest: `${dist}/index.html`,
