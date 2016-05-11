@@ -4,7 +4,9 @@
   "description": "marine",
   "repository": "zhongzhi107/marine",
   "scripts": {
-    "start": "grunt",
+    "start": "grunt serve",
+    "start:dist": "grunt serve:dist",
+    "build": "grunt build",
     "test": "grunt --deploy-type=beta"
   },
   "author": "zhong.zhi@163.com",

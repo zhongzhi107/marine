@@ -18,15 +18,20 @@ let mountFolder = (connect, dir) => {
 
 export default {
   rules: routerApi,
+  options: {
+    hostname: '0.0.0.0',
+    keepalive: true,
+    port: grunt.option('port') || marine.port.www,
+    localhost: grunt.option('host') || 'localhost',
+  },
   dev: {
     options: {
-      port: grunt.option('port') || marine.port.www,
-      hostname: '0.0.0.0',
-      localhost: grunt.option('host') || 'localhost',
-      keepalive: true,
       middleware: (connect) => {
         return [
-          serverRender,
+          serverRender({
+            layoutPath: marine.path.app + '/public/index.html',
+            hashmapPath: `../../${marine.path.dist}/webpack-assets.json`,
+          }),
           mountFolder(connect, marine.path.app + '/public'),
           rewriteRequest,
           webpackDevMiddleware(compiler, {
@@ -43,14 +48,12 @@ export default {
   },
   dist: {
     options: {
-      port: grunt.option('port') || marine.port.www,
-      hostname: '0.0.0.0',
-      localhost: grunt.option('host') || 'localhost',
-      keepalive: true,
       middleware: (connect) => {
         return [
+          serverRender({
+            layoutPath: 'dist/index.html',
+          }),
           mountFolder(connect, marine.path.dist),
-          mountFolder(connect, marine.path.dist + '/views'),
           rewriteRequest
         ];
       }

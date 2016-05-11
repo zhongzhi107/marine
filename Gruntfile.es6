@@ -1,28 +1,12 @@
 'use strict';
 
-import path from 'path';
+import matchdep from 'matchdep';
 import connect from './config/grunt/connect';
 import webpackConfig from './config/grunt/webpack-production';
 
 export default (grunt) => {
-
-  // node-modules是提供给QDR编译环境使用的参数
-  // 本机开发可以忽略
-  let nodeModulesDir = grunt.option('node-modules') || '.';
-  let root = path.resolve('node_modules');
-
-  require('matchdep').filterAll('grunt-*').forEach((nodeModule) => {
-    let taskdir = path.join(root, nodeModule, 'tasks');
-    if (grunt.file.exists(taskdir)) {
-      // 优先从项目根目录下加载依赖包
-      grunt.loadNpmTasks(nodeModule);
-    } else if (nodeModulesDir) {
-      // 项目根目录没找到的话就到外部公共目录找
-      let cwd = process.cwd();
-      process.chdir(nodeModulesDir);
-      grunt.loadNpmTasks(nodeModule);
-      process.chdir(cwd);
-    }
+  matchdep.filterAll('grunt-*').forEach((nodeModule) => {
+    grunt.loadNpmTasks(nodeModule);
   });
 
   grunt.initConfig({
@@ -35,10 +19,30 @@ export default (grunt) => {
   });
 
   // 注册默认任务
-  grunt.registerTask('default', [
-    'configureRewriteRules',
-    'connect:dev'
-  ]);
+  grunt.registerTask('default', () => {
+    console.log([
+      'Marine Commands Manual',
+      '',
+      '可用命令:',
+      'npm start\t\t启动开发环境服务',
+      'npm run start:dist\t启动编译结果预览服务',
+      'npm run build\t\t编译项目',
+      '',
+      'The following options are available:',
+      '--host\t\t服务器域名，默认localhost',
+      '--port\t\t服务器端口号，默认3000',
+      '--deploy-type\t编译类型'
+    ].join('\n'));
+  });
+
+  grunt.registerTask('serve', (target='dev') => {
+    let tasks = ['configureRewriteRules'];
+    if (target !== 'dev') {
+      tasks.push('build');
+    }
+    tasks.push(`connect:${target}`);
+    grunt.task.run(tasks);
+  });
 
   grunt.registerTask('build', [
     'webpack'
