@@ -30,7 +30,6 @@ export default {
         return [
           serverRender({
             layoutPath: marine.path.app + '/public/index.html',
-            hashmapPath: `../../${marine.path.dist}/webpack-assets.json`,
           }),
           mountFolder(connect, marine.path.app + '/public'),
           rewriteRequest,

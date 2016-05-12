@@ -41,21 +41,6 @@ export default (options) => {
           meta[key] = '';
         });
 
-        // 替换成混淆后的文件名
-        // webpack-assets.json的数据如下：
-        // {"main":{"js":"main.3148662cd2b83e1ae5f8.js"}}
-        let webpackAssets = options.hashmapPath;
-        if (webpackAssets && fs.existsSync(path.join(__dirname, webpackAssets))) {
-          let stats = require(webpackAssets);
-          for (let bundleName in stats) {
-            for (let assetKind in stats[bundleName]) {
-              let target = stats[bundleName][assetKind];
-              let source = `${bundleName}.${assetKind}`;
-              templateString = templateString.replace(source, target);
-            }
-          }
-        }
-
         // 取最下层的组件作为目标组件
         let {components, params} = renderProps;
         let Component = components[components.length - 1];

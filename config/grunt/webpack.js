@@ -6,7 +6,7 @@ import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ReplaceHashWebpackPlugin from 'replace-hash-webpack-plugin';
-import AssetsWebpackPlugin from 'assets-webpack-plugin';
+// import AssetsWebpackPlugin from 'assets-webpack-plugin';
 import marine from '../marine';
 
 const cwd = process.cwd();
@@ -112,15 +112,6 @@ module.exports = function(options) {
       loader: 'react-hot',
       exclude: nodeModuleReg
     });
-  }
-
-  if (options.longTermCaching) {
-    plugins.push(
-      new AssetsWebpackPlugin({
-        path: path.join(cwd, dist),
-        fullPath: false,
-      })
-    );
   }
 
   if (options.release) {
