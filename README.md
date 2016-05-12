@@ -22,7 +22,7 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 - [ ]测试用例
 - [ ]Component错误在服务器端渲染时不报错
 - [ ]生产环境代码运行效率
-- [ ]build，将版本号替换到html中
+- [x]build，将版本号替换到html中
 - [ ]PostCSS
 
 ## 安装
