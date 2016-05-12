@@ -22,7 +22,7 @@ const nodeModuleReg = /node_modules/;
  * options.minimize
  * options.
  */
-module.exports = function(options) {
+export default (options) => {
   // 是否为debug模式
   // const DEBUG = process.env.NODE_ENV === 'local';
 
