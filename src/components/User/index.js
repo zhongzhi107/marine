@@ -7,7 +7,7 @@ import prefetchData from '../../decorators/prefetchData';
 
 @prefetchData()
 export default class extends PageComponent {
-  static title = '用户<%=userID%>';
+  static title = '用户<%=userId%>';
   static keywords = '关键字1';
   static description = '描述文字';
 
