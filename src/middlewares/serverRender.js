@@ -13,7 +13,12 @@ function render(data, res, renderProps, meta, templateString) {
   renderProps.params.observe = data;
   meta.pageInitialState = JSON.stringify(data);
   // TODO 用data做二次替换
-  meta.body = renderToString(<RouterContext {...renderProps} />);
+  try {
+    meta.body = renderToString(<RouterContext {...renderProps} />);
+  } catch(e) {
+    res.writeHead(500, {'Content-Type': 'text/plain'});
+    res.end(e.message);
+  }
   res.end(format(templateString, meta));
 }
 

@@ -8,6 +8,7 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 ## 关键词
 * react
 * webpack
+* isomorphic
 * babeljs
 * es6
 * gruntjs
@@ -20,7 +21,7 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 - [ ]前端props预加载完成后再进入目标页面
 - [ ]模拟进度条
 - [ ]测试用例
-- [ ]Component错误在服务器端渲染时不报错
+- [x]Component错误在服务器端渲染时不报错
 - [ ]生产环境代码运行效率
 - [x]build，将版本号替换到html中
 - [ ]css in js
