@@ -17,14 +17,14 @@ export default class AsyncComponent extends Component {
 
     // 浏览器端渲染
     if (process.browser) {
-      if (window.PAGE_INITIAL_STATE) {
+      if (window.__INITIAL_STATE__) {
         let pageInitialState;
         try {
-          pageInitialState = JSON.parse(window.PAGE_INITIAL_STATE);
+          pageInitialState = JSON.parse(window.__INITIAL_STATE__);
           Object.assign(newState, pageInitialState);
         } catch (e) {}
         // 使用一次后销毁，防止后续页面再使用该变量
-        window.PAGE_INITIAL_STATE = null;
+        window.__INITIAL_STATE__ = null;
       }
 
       if (JSON.stringify(newState) === JSON.stringify(defaultState)) {
