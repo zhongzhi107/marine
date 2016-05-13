@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 // 服务器端渲染时不包含css的模块
-if (process.env.BROWSER) {
-  require('./App.less');
+if (process.browser) {
+  require('./App.css');
 }
 
 export default class App extends Component {

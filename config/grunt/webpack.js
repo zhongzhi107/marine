@@ -6,6 +6,8 @@ import webpack from 'webpack';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ReplaceHashWebpackPlugin from 'replace-hash-webpack-plugin';
+import precss from 'precss';
+import cssnext from 'postcss-cssnext';
 // import AssetsWebpackPlugin from 'assets-webpack-plugin';
 import marine from '../marine';
 
@@ -23,24 +25,6 @@ const nodeModuleReg = /node_modules/;
  * options.
  */
 export default (options) => {
-
-  // css是否需要代码压缩
-  const minimize = '';
-
-  // autoprefixer兼容的浏览器列表
-  const AUTOPREFIXER_LOADER = '!autoprefixer?' + JSON.stringify({
-    browsers: [
-      'Android 2.3',
-      'Android >= 4',
-      'Chrome >= 20',
-      'Firefox >= 24',
-      'Explorer >= 8',
-      'iOS >= 6',
-      'Safari >= 6'
-    ]
-  });
-
-  const STYLE_LOADER = 'style!css' + minimize + AUTOPREFIXER_LOADER;
 
   let entry = [
     `./${app}/main.js`
@@ -75,6 +59,13 @@ export default (options) => {
     },
   };
 
+  let postcss = () => {
+    return [
+      precss,
+      cssnext
+    ];
+  }
+
   let moduleConfig = {
     preLoaders: [
       {
@@ -84,8 +75,7 @@ export default (options) => {
       }
     ],
     loaders: [
-      { test: /\.css$/, loader: STYLE_LOADER },
-      { test: /\.less$/, loader: STYLE_LOADER + '!less' },
+      { test: /\.css$/, loader: 'style!css!postcss' },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -151,6 +141,7 @@ export default (options) => {
     output,
     plugins,
     resolve,
+    postcss,
     module: moduleConfig,
   };
 
