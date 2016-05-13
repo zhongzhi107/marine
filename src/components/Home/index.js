@@ -7,11 +7,14 @@ import fetch from '../../utils/fetch';
 // 1. 引入preload模块
 import prefetchData from '../../decorators/prefetchData';
 // import marine from '../../../config/marine';
+import CSSModules from 'react-css-modules';
+import styles from './test.css';
 
 // 2. 给组件类加上装饰器
 @prefetchData()
+// CSSModules顺序在最下面
+@CSSModules(styles)
 export default class extends PageComponent {
-// export default class extends PageComponent {
 
   constructor(props) {
     super(props);
@@ -39,7 +42,7 @@ export default class extends PageComponent {
     let state = this.props;
     return (
       <div>
-        <h1>Home, {state.name}</h1>
+        <h1 styleName="joe">Home, {state.name}</h1>
         <Link to="/about">关于我们</Link>
         <ul>
           {
@@ -52,3 +55,5 @@ export default class extends PageComponent {
     )
   }
 };
+
+// export default CSSModules(Home, styles);

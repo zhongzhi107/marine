@@ -13,6 +13,7 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 * react
 * webpack
 * isomorphic
+* universal
 * babeljs
 * es6
 * gruntjs
