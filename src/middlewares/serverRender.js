@@ -27,10 +27,11 @@ export default (options) => {
     match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
         console.log('500');
-        res.status(500).send(error.message);
+        res.writeHead(500);
+        res.end(error.message);
       } else if (redirectLocation) {
-        console.log('302');
-        res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+        let newUrl = redirectLocation.pathname + redirectLocation.search;
+        res.writeHead(302, {Location: newUrl});
       } else if (renderProps) {
         // You can also check renderProps.components or renderProps.routes for
         // your "not found" component or route respectively, and send a 404 as

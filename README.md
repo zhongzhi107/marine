@@ -1,4 +1,8 @@
 # Marine
+Marine is a small isomorphic web application framework.
+
+It is built on koa using React and Redux. It is developed with webpack and react-hot-loader and written with babeljs with the help of eslint.
+
 单页面应用(SPA)的用户体验相比传统网站来说要好很多，但是，它对SEO很不友好。
 
 React的`server render`能解决大部分SEO的问题，但是，有时我们希望网页初始化的Ajax数据也变成搜索引擎能爬到的内容。
@@ -22,8 +26,10 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 - [ ]模拟进度条
 - [ ]测试用例
 - [x]Component错误在服务器端渲染时不报错
-- [ ]生产环境代码运行效率
 - [x]build，将版本号替换到html中
+- [ ]增加404页面
+- [ ]webserver升级为koa
+- [ ]测试在windows系统下的兼容性
 - [ ]css in js
   - [ ]PostCSS
   - [ ]Server render https://github.com/Khan/aphrodite

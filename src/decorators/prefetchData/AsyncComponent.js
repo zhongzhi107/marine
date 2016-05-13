@@ -1,7 +1,7 @@
 'use strict';
 
-import { Component } from 'react';
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+import {Component} from 'react';
+import {canUseDOM} from '../../utils/env';
 
 export default class AsyncComponent extends Component {
 

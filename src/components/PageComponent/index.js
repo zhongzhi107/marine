@@ -4,7 +4,6 @@
 'use strict';
 
 import {Component} from 'react';
-// import invariant from 'fbjs/lib/invariant';
 
 export default class PageComponent extends Component {
 
@@ -17,10 +16,6 @@ export default class PageComponent extends Component {
     return Promise.reject(
       'PageComponent subclass should implement observe() static class method'
     );
-    // invariant(
-    //   false,
-    //   'PageComponent subclass should implement observe() static class method'
-    // );
   }
 
   constructor(props) {

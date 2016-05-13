@@ -2,7 +2,6 @@
 
 import React from 'react';
 import AsyncComponent from './AsyncComponent';
-// import invariant from 'fbjs/lib/invariant';
 
 function prefetchData() {
   return (Target) => {

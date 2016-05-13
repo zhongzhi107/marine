@@ -1,8 +1,12 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import { Link } from 'react-router';
+
+// 服务器端渲染时不包含css的模块
+if (process.env.BROWSER) {
+  require('./App.less');
+}
 
 export default class App extends Component {
 
@@ -12,9 +16,6 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    if (canUseDOM) {
-      // require('./App.less');
-    }
   }
 
   componentDidMount() {

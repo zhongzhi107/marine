@@ -23,26 +23,24 @@ const nodeModuleReg = /node_modules/;
  * options.
  */
 export default (options) => {
-  // 是否为debug模式
-  // const DEBUG = process.env.NODE_ENV === 'local';
 
   // css是否需要代码压缩
-  // const minimize = DEBUG ? '' : '?minimize';
-  //
-  // // autoprefixer兼容的浏览器列表
-  // const AUTOPREFIXER_LOADER = '!autoprefixer?' + JSON.stringify({
-  //   browsers: [
-  //     'Android 2.3',
-  //     'Android >= 4',
-  //     'Chrome >= 20',
-  //     'Firefox >= 24',
-  //     'Explorer >= 8',
-  //     'iOS >= 6',
-  //     'Safari >= 6'
-  //   ]
-  // });
+  const minimize = '';
 
-  // const STYLE_LOADER = 'style!css' + minimize + AUTOPREFIXER_LOADER;
+  // autoprefixer兼容的浏览器列表
+  const AUTOPREFIXER_LOADER = '!autoprefixer?' + JSON.stringify({
+    browsers: [
+      'Android 2.3',
+      'Android >= 4',
+      'Chrome >= 20',
+      'Firefox >= 24',
+      'Explorer >= 8',
+      'iOS >= 6',
+      'Safari >= 6'
+    ]
+  });
+
+  const STYLE_LOADER = 'style!css' + minimize + AUTOPREFIXER_LOADER;
 
   let entry = [
     `./${app}/main.js`
@@ -63,7 +61,10 @@ export default (options) => {
   let plugins = [
     new CleanWebpackPlugin(dist, {root: cwd}),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      },
+      BROWSER: JSON.stringify(true),
     }),
     new webpack.NoErrorsPlugin(),
   ];
@@ -83,8 +84,8 @@ export default (options) => {
       }
     ],
     loaders: [
-      // { test: /\.css$/, loader: STYLE_LOADER },
-      // { test: /\.less$/, loader: STYLE_LOADER + '!less' },
+      { test: /\.css$/, loader: STYLE_LOADER },
+      { test: /\.less$/, loader: STYLE_LOADER + '!less' },
       {
         test: /\.js$/,
         loader: 'babel-loader',
