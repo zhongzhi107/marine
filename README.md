@@ -23,7 +23,11 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 - [ ]Component错误在服务器端渲染时不报错
 - [ ]生产环境代码运行效率
 - [x]build，将版本号替换到html中
-- [ ]PostCSS
+- [ ]css in js
+  - [ ]PostCSS
+  - [ ]Server render https://github.com/Khan/aphrodite
+  - [ ]Nesting Styles https://github.com/dowjones/react-inline-style
+  - [ ]React Native style
 
 ## 安装
 
@@ -44,14 +48,13 @@ http://localhost:3000
 .
 ├── /config/                    # 项目配置文件目录
 │   ├── /env/                   # 环境差异配置文件
-│   │   ├── /beta.js            # Beta环境配置文件
 │   │   ├── /development.js     # Dev环境配置文件
 │   │   └── /production.js      # 生产环境配置文件
 │   ├── /grunt/                 # Grunt任务配置文件
 │   ├── /marine.js              # 项目综合配置文件
 │   └── /router-api.js          # APIs接口mock路由配置文件
+├── /dist/                      # 项目编译输出目录
 ├── /docs/                      # 文档
-├── /prd/                       # 项目编译输出目录
 ├── /src/                       # 项目源码目录
 │   ├── /components/            # React组件
 │   ├── /data/                  # Mock数据文件
@@ -69,6 +72,10 @@ http://localhost:3000
 │── package.json
 └── README.md                   
 ```
+
+## 浏览器支持
+支持history management的浏览器
+IE11+，Chrome，Firefox
 
 ## 代码规范
 

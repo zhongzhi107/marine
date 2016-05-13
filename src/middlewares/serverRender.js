@@ -3,7 +3,7 @@ import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
-import template from 'lodash.template';
+import format from 'string-format';
 import '../utils/require-polyfill';
 import routes from '../main';
 
@@ -14,7 +14,7 @@ function render(data, res, renderProps, meta, templateString) {
   meta.pageInitialState = JSON.stringify(data);
   // TODO 用data做二次替换
   meta.body = renderToString(<RouterContext {...renderProps} />);
-  res.end(template(templateString)(meta));
+  res.end(format(templateString, meta));
 }
 
 export default (options) => {
@@ -48,7 +48,7 @@ export default (options) => {
           // 将Component的静态属性赋给meta
           META_KEYS.forEach((key) => {
             if (Component.hasOwnProperty(key)) {
-              meta[key] = template(Component[key])(params);
+              meta[key] = format(Component[key], params);
             }
           });
 
