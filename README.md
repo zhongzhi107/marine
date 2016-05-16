@@ -31,6 +31,8 @@ React的`server render`能解决大部分SEO的问题，但是，有时我们希
 - [ ]增加404页面
 - [ ]webserver升级为koa
 - [ ]测试在windows系统下的兼容性
+- [ ]grunt-connect-route@0.3.3安装不了
+- [ ]redux文件修改后不能hmr
 - [ ]css in js
   - [ ]PostCSS
   - [ ]Server render https://github.com/Khan/aphrodite

@@ -22,8 +22,14 @@ export default class PageComponent extends Component {
     super(props);
 
     // 支持webpack HRM功能
-    if (module.hot) {
-      module.hot.accept();
-    }
+    // if (module.hot) {
+    //   module.hot.accept();
+    // }
+
+    // if (module.hot) {
+    //   module.hot.accept('../../redux', () =>
+    //     store.replaceReducer(require('../../redux')/*.default if you use Babel 6+ */)
+    //   );
+    // }
   }
 }
