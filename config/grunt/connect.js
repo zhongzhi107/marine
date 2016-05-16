@@ -8,7 +8,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import marine from '../marine';
 import routerApi from '../router-api';
 import {rewriteRequest} from 'grunt-connect-route/lib/utils';
-// import serverRender from '../../src/middlewares/serverRender';
+import serverRender from '../../src/middlewares/serverRender';
 
 let compiler = webpack(webpackConfig);
 
@@ -28,7 +28,7 @@ export default {
     options: {
       middleware: (connect) => {
         return [
-          // serverRender({layoutPath: marine.path.app + '/public/index.html'}),
+          serverRender({layoutPath: marine.path.app + '/public/index.html'}),
           mountFolder(connect, marine.path.app + '/public'),
           rewriteRequest,
           webpackDevMiddleware(compiler, {

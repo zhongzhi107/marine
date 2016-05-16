@@ -5,6 +5,8 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import format from 'string-format';
 import '../utils/require-polyfill';
+import '../utils/require-css';
+import '../utils/require-react-css-modules';
 import routes from '../main';
 
 const META_KEYS = ['title', 'keywords', 'description', 'body'];

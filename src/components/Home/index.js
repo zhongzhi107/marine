@@ -7,13 +7,14 @@ import fetch from '../../utils/fetch';
 // 1. 引入preload模块
 import prefetchData from '../../decorators/prefetchData';
 // import marine from '../../../config/marine';
-import CSSModules from 'react-css-modules';
-import styles from './test.css';
+// import CSSModules from 'react-css-modules';
+// import styles from './test.css';
+// console.log('=====css', styles, CSSModules);
 
 // 2. 给组件类加上装饰器
 @prefetchData()
 // CSSModules顺序在最下面
-@CSSModules(styles)
+// @CSSModules(styles)
 export default class extends PageComponent {
 
   constructor(props) {
