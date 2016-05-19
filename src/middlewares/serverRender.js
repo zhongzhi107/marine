@@ -3,7 +3,6 @@ import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
-// import { ReduxAsyncConnect, loadOnServer } from 'redux-async-connect';
 import format from 'string-format';
 import '../utils/require-polyfill';
 import '../utils/require-css';
@@ -11,6 +10,7 @@ import '../utils/require-react-css-modules';
 import routes from '../main';
 
 const META_KEYS = ['title', 'keywords', 'description', 'body'];
+
 
 function render(data, res, renderProps, meta, templateString) {
   renderProps.params.observe = data;
@@ -25,7 +25,7 @@ function render(data, res, renderProps, meta, templateString) {
   res.end(format(templateString, meta));
 }
 
-export default (options) => {
+export default (layoutPath) => {
   return (req, res, next) => {
     match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
@@ -40,27 +40,7 @@ export default (options) => {
         // your "not found" component or route respectively, and send a 404 as
         // below, if you're using a catch-all route.
 
-        // loadOnServer({...renderProps, store}).then(() => {
-        //   console.log('======', store);
-          // const component = (
-          //   <Provider store={store} key="provider">
-          //     <ReduxAsyncConnect {...renderProps} />
-          //   </Provider>
-          // );
-
-          // res.status(200);
-          // renderToString(<RouterContext {...renderProps} />);
-          // render(store, res, renderProps, meta, templateString);
-
-          // global.navigator = {userAgent: req.headers['user-agent']};
-          //
-          // res.send('<!doctype html>\n' +
-          //   ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
-        // });
-
-
-
-        let filename = path.join(process.cwd(), options.layoutPath);
+        let filename = path.join(process.cwd(), layoutPath);
         let templateString = fs.readFileSync(filename, { encoding: 'utf8' });
         let meta = {
           pageInitialState: ''
