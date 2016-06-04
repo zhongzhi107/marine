@@ -1,7 +1,8 @@
-.tmp
-*.DS_Store
-npm-debug.log
-node_modules/
+.idea/
 prd/
+node_modules/
 dist/
-problem.md
+*.iml
+webpack-assets.json
+webpack-stats.json
+npm-debug.log
