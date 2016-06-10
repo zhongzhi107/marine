@@ -29,10 +29,7 @@
     "start-dev": "better-npm-run start-dev",
     "start-dev-api": "better-npm-run start-dev-api",
     "watch-client": "better-npm-run watch-client",
-    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\"",
-    "test": "karma start",
-    "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register",
-    "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch"
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\""
   },
   "betterScripts": {
     "start-prod": {
@@ -114,13 +111,11 @@
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
     "react": "^0.14.2",
-    "react-bootstrap": "^0.28.1",
     "react-dom": "^0.14.1",
     "react-helmet": "^2.2.0",
     "react-inline-css": "^2.0.0",
     "react-redux": "^4.0.0",
     "react-router": "2.0.0",
-    "react-router-bootstrap": "^0.20.1",
     "react-router-redux": "^4.0.0",
     "redux": "^3.0.4",
     "redux-async-connect": "^1.0.0-rc2",
@@ -141,8 +136,6 @@
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-typecheck": "^3.6.0",
     "better-npm-run": "0.0.8",
-    "bootstrap-sass": "^3.3.5",
-    "bootstrap-sass-loader": "^1.0.9",
     "clean-webpack-plugin": "^0.1.6",
     "concurrently": "^0.1.1",
     "css-loader": "^0.23.1",
@@ -152,8 +145,6 @@
     "eslint-plugin-import": "^0.8.0",
     "eslint-plugin-react": "^3.5.0",
     "extract-text-webpack-plugin": "^0.9.1",
-    "font-awesome": "^4.4.0",
-    "font-awesome-webpack": "0.0.4",
     "json-loader": "^0.5.4",
     "node-sass": "^3.4.2",
     "react-a11y": "^0.2.6",
