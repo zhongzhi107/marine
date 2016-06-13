@@ -15,7 +15,6 @@
     "react-hot-reloader",
     "redux",
     "starter",
-    "boilerplate",
     "babel"
   ],
   "main": "bin/server.js",
