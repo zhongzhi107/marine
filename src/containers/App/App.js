@@ -1,14 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import { IndexLink } from 'react-router';
-// import { LinkContainer } from 'react-router-bootstrap';
-// import Navbar from 'react-bootstrap/lib/Navbar';
-// import Nav from 'react-bootstrap/lib/Nav';
-// import NavItem from 'react-bootstrap/lib/NavItem';
 import Helmet from 'react-helmet';
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
-// import { InfoBar } from 'components';
 import { push } from 'react-router-redux';
 import config from '../../config';
 import { asyncConnect } from 'redux-async-connect';
@@ -27,9 +21,11 @@ import { asyncConnect } from 'redux-async-connect';
     return Promise.all(promises);
   }
 }])
+
 @connect(
   state => ({user: state.auth.user}),
-  {logout, pushState: push})
+  {logout, pushState: push}
+)
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
@@ -64,7 +60,9 @@ export default class App extends Component {
     return (
       <div>
         <Helmet {...config.app.head}/>
-        <h1>App</h1>
+        <div id="app">
+          {this.props.children}
+        </div>
       </div>
     );
   }
